@@ -2,6 +2,14 @@
 
 Download your electric usage data, and generate interesting stats.
 
+## installer elvia-python
+
+<https://github.com/andersem/elvia-python>
+
+```bash
+pip install --upgrade elvia
+```
+
 ## Autentiser
 
 ```bash
