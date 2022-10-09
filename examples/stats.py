@@ -1,8 +1,17 @@
+import argparse
 import csv
 import json
 
-spotprice = 'spot/2022-08.csv'
-usage     = 'elvia-2022-08.json'
+
+parser = argparse.ArgumentParser(description="Sum every hour in a month, to see which our is using most power")
+
+parser.add_argument('-d', '--date',
+                    help='The year and month you want to calculate. ex. 2022-08',
+                    required=True)
+args = parser.parse_args()
+
+spotprice = '../spot/%s.csv' % args.date
+usage     = '../forbruk/%s.json' % args.date
 
 spotmonth = {}
 
