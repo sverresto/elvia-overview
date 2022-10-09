@@ -1,8 +1,21 @@
+import argparse
 import csv
 import json
 
-spotprice = 'spot/2022-08.csv'
-usage     = 'forbruk/elvia-2022-08.json'
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-d', '--date',
+                    help='The year and month you want to calculate. ex. 2022-08',
+                    required=True)
+parser.add_argument('-s', '--surcharge',
+                    help='How much the provider adds to the spotpris in øre. Can be negative.',
+                    type=float,
+                    default= 0)
+args = parser.parse_args()
+
+spotprice = '../spot/%s.csv' % args.date
+usage     = '../forbruk/%s.json' % args.date
+surcharge = args.surcharge
 
 spotmonth = {}
 
@@ -13,7 +26,6 @@ with open('%s' % spotprice) as S:
             continue
         date, time = row[0].split(' ')
         price = row[-1]
-        # print('%s, %s, %s' % (date, time, price))
         if not date in spotmonth:
             spotmonth[date] = {}
         spotmonth[date][time] = float(price.replace(',','.'))
@@ -32,15 +44,12 @@ theirCost = 0.0
 with open('%s' % usage) as U:
     J = json.load(U)
     for V in J['meteringpoints'][0]['metervalue']['timeSeries']:
-        print(V['startTime'])
-        print(V['value'])
         price = lookupPrice(V['startTime'])
         total += V['value']
         value = V['value']
-        print(value)
         cost += price * value
-        theirCost += (price+14.2) * value
+        theirCost += (price+surcharge) * value
 
 print('Total usage kWh: %s' % total)
-print('Total cost: %s' % cost)
+print('Total cost (spotpris): %s' % cost)
 print('Their cost: %s' % theirCost)
