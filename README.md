@@ -33,7 +33,7 @@ python get-period.py 2022-07-01T00:00:00 2022-08-01T00:00:00 > forbruk/2022-07.j
 
 Spotpris for område ØST ligger i `/spot`.
 
-Spotpris time for time pr måned er lastet ned herfra:
+Spotpris time for time pr måned er lastet ned herfra, og lagret som csv (etter å ha fjernet de to kolonnene til høyre):
 <https://minspotpris.no/sjekkfaktura/beregn_fakturagrunnlag.html>
 
 Velg riktig region (viktig!), og måned. 
@@ -51,3 +51,23 @@ Total cost (spotpris): 192060.43737400026
 Their cost: 192060.43737400026
 ```
 
+### stats.py
+
+Regner ut det daglige timesforbruket, og summerer dagene.
+
+```bash
+$ python stats.py -d 2022-06
+'00:00:00','73.94037897899999','41.572'
+'01:00:00','61.455086322999996','35.253'
+'02:00:00','54.975956276','31.814000000000007'
+'03:00:00','50.781662095','29.978999999999992'
+'04:00:00','49.066167558999986','29.229'
+'05:00:00','49.610034730999985','29.329'
+'06:00:00','56.027158576999994','30.156999999999993'
+'07:00:00','108.612389048','52.611'
+'08:00:00','93.980469865','44.022999999999996'
+'09:00:00','94.31682581400001','43.52399999999999'
+[...]
+```
+
+I juni brukte vi mest strøm mellom 07 og 08...
