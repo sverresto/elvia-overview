@@ -11,11 +11,16 @@ parser.add_argument('-s', '--surcharge',
                     help='How much the provider adds to the spotpris in øre. Can be negative.',
                     type=float,
                     default= 0)
+parser.add_argument('-c', '--constant',
+                    help='How much the provider adds to your bill, invoice fee &c. in kroner ',
+                    type=float,
+                    default= 0)
 args = parser.parse_args()
 
 spotprice = '../spot/%s.csv' % args.date
 usage     = '../forbruk/%s.json' % args.date
 surcharge = args.surcharge
+fee = args.fee*100
 
 spotmonth = {}
 
@@ -52,4 +57,4 @@ with open('%s' % usage) as U:
 
 print('Total usage kWh: %s' % total)
 print('Total cost (spotpris): %s' % cost)
-print('Their cost: %s' % theirCost)
+print('Their cost: %s' % theirCost + fee)

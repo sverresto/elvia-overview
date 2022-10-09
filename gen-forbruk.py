@@ -1,13 +1,24 @@
-from datetime import *
+import argparse
 import calendar
 
-# set this to the period you like to fetch data from
-year = 2020
-month = 2
-endyear = 2020
-endmonth = 4
+from datetime import datetime
 
-# Not much to du below this comment
+
+parser = argparse.ArgumentParser(description="Helper to generate command line needed to fetch data from Elvia")
+
+parser.add_argument('-s', '--start',
+                    help='The year and month you want to calculate from. ex. 2022-05',
+                    required=True)
+parser.add_argument('-e', '--end',
+                    help='The year and month you want to calculate to. ex. 2022-08',
+                    required=True)
+
+args = parser.parse_args()
+
+# set this to the period you like to fetch data from
+year,month = map(int, args.start.split('-'))
+endyear,endmonth = map(int, args.end.split('-'))
+
 oldyear = 0
 oldmonth = 0
 

@@ -22,21 +22,11 @@ export ELVIA_METERING_POINT_ID=""
 
 ## bruk
 
-Editer `gen-forbruk.py`
-
-```python
-year = 2020
-month = 2
-endyear = 2020
-endmonth = 4
-```
-
-Generer kommandolinjene som skal kjøres
-
 ```bash
-~/git/elvia-overview $ python gen-forbruk.py
-python get-period.py 2020-02-01T00:00:00 2020-03-01T00:00:00 > forbruk/2020-02.json
-python get-period.py 2020-03-01T00:00:00 2020-04-01T00:00:00 > forbruk/2020-03.json
+$ python gen-forbruk.py -s 2022-05 -e 2022-08
+python get-period.py 2022-05-01T00:00:00 2022-06-01T00:00:00 > forbruk/2022-05.json
+python get-period.py 2022-06-01T00:00:00 2022-07-01T00:00:00 > forbruk/2022-06.json
+python get-period.py 2022-07-01T00:00:00 2022-08-01T00:00:00 > forbruk/2022-07.json
 ```
 
 ## Spotpris
@@ -48,5 +38,16 @@ Spotpris time for time pr måned er lastet ned herfra:
 
 Velg riktig region (viktig!), og måned. 
 
-# eksempler
+## eksempler
+
+### `bill.py`
+
+Regner sammen timesforbruk og spotpris for en måned. `-s` vil legge til ørepåslag, `-c` vil legge til faste gebyrer.
+
+```bash
+$ python bill.py -d 2022-06
+Total usage kWh: 1020.8450000000001
+Total cost (spotpris): 192060.43737400026
+Their cost: 192060.43737400026
+```
 
